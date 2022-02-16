@@ -38,7 +38,7 @@ def get_asset_price(asset,currency,apikey):
     return response
 
 def prices(request):
-    latest_data = asset_prices_model.objects.filter().first()
+    latest_data = asset_prices_model.objects.filter().last()
     context= {"latest_data": latest_data}
 
     return render(request, 'index.html',context)
