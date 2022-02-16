@@ -1,0 +1,59 @@
+<style>
+    body {
+        background:#4d4d4e;
+    }
+    table, th, td {
+      border:5px solid #f2a900;
+      text-align:center;
+      padding:5px;
+      margin:auto;
+      color:white;
+      background:#4d4d4e;
+    }
+    h1 {
+        color:#f2a900;
+        text-align:center;
+    }
+    .center {
+        text-align:center;
+    }
+    .button {
+
+        background-color: #f2a900;
+        border: none;
+        color: #4d4d4e;
+        padding: 15px 32px;
+        text-align:center;
+        margin:auto;
+        text-decoration: none;
+        border-radius:5px;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+</style>
+
+<body>
+    <div class="center">
+        <table style="width:60%;">
+            <h1>Bitcoin Prices</h1>
+            <tr>
+                <th>Asset</th>
+                <th>Code</th>
+                <th>Price</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <td>{{latest_data.name}}</td>
+                <td>{{latest_data.code}}</td>
+                <td>{{latest_data.price}}</td>
+                <td>{{latest_data.dateTime}}</td>
+            </tr>
+        </table>
+        <br>
+        <a href="{% url 'register' %}" class="button">
+            Register
+        </a>
+    </div>
+</body>

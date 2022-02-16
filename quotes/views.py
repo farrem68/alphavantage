@@ -1,5 +1,5 @@
 from unicodedata import name
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 #
 from django.http import HttpResponse , JsonResponse
@@ -11,6 +11,7 @@ from rest_framework.decorators import api_view , permission_classes
 from .serializer import AssetPricesModel
 #
 from .models import asset_prices_model
+from .forms import register_form
 import requests
 import json
 import time
@@ -36,6 +37,20 @@ def get_asset_price(asset,currency,apikey):
     
     return response
 
+def prices(request):
+    latest_data = asset_prices_model.objects.filter().first()
+    context= {"latest_data": latest_data}
+
+    return render(request, 'index.html',context)
+
+def register(request):
+    form = register_form(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    context = {"form":form}
+    return render(request, 'register.html',context)
 
 
 @api_view(['GET',"POST"])

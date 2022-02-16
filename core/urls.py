@@ -6,6 +6,8 @@ import quotes.views as quote_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', quote_views.prices),    
+    path('register/', quote_views.register, name="register"),
     path('api/v1/api-token-auth/', views.obtain_auth_token),
     path("api/v1/quotes/", quote_views.quotes )
 ]
