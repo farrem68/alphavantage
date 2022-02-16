@@ -50,17 +50,20 @@ def quotes(request):
 
     elif request.method == "POST":
         market_stats = get_asset_price("btc","usd",settings.ALPHAVANTAGE_KEY)
-        asset_prices_model.objects.create(
-            name=market_stats["coin_name"],
-            code=market_stats['coin_code'],
-            fiat_pair=market_stats["fiat_pair"],
-            price=market_stats["market_value"],
-            best_bid=market_stats["bid_price"],
-            best_ask=market_stats["ask_price"]
-        )
-        assets = asset_prices_model.objects.filter().first()
-        serializer = AssetPricesModel(assets)
-        return JsonResponse({"data" : serializer.data},status=201)
+        payload= {
+            "name":market_stats["coin_name"],
+            "code":market_stats['coin_code'],
+            "fiat_pair":market_stats["fiat_pair"],
+            "price":market_stats["market_value"],
+            "best_bid":market_stats["bid_price"],
+            "best_ask":market_stats["ask_price"]
+        }
+        serializer = AssetPricesModel(data = payload)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({"data" : serializer.data},status=201)
+        else:
+            return JsonResponse({"data" : serializer.data},status=201)
 
     else:
         return JsonResponse({"data" : "Invailed Request."}, status=400)

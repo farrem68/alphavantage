@@ -34,6 +34,7 @@ def update_price_table(self):
 app.conf.beat_schedule = {
     'Update_pricing_table': {
         'task': 'update_price_table',  
-        'schedule': 3600.0,
+        'schedule': 60.0,
+        # 'schedule': 3600.0,
     }
 }
